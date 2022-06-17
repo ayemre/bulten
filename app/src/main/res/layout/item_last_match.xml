@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/home_team"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/full_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="CD Godoy Cruz" />
+
+    <TextView
+        android:id="@+id/full_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:ellipsize="end"
+        android:paddingHorizontal="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text=" 3 - 4" />
+
+    <TextView
+        android:id="@+id/half_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/full_time"
+        tools:text=" 1 - 2 (İ.Y.)" />
+
+
+    <TextView
+        android:id="@+id/away_team"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:ellipsize="end"
+        android:textAlignment="textEnd"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/full_time"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Karşı Takım" />
+
+
+    <TextView
+        android:id="@+id/league"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/half_time"
+        tools:text="Profesyonel Lig" />
+</androidx.constraintlayout.widget.ConstraintLayout>
