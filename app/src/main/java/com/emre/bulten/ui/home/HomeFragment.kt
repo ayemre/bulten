@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.emre.bulten.databinding.FragmentHomeBinding
 import com.emre.bulten.remote.models.Match
+import com.emre.bulten.ui.SharedViewModel
 import com.emre.bulten.ui.matchdialog.matchDetailDialog
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.dialog_match_detail.view.*
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.dialog_match_detail.view.*
 
 class HomeFragment : Fragment(), MatchListAdapter.Listener {
 
-    private var homeViewModel: HomeViewModel? = null
+    private var sharedViewModel: SharedViewModel? = null
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -35,8 +36,8 @@ class HomeFragment : Fragment(), MatchListAdapter.Listener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        sharedViewModel =
+            ViewModelProvider(this).get(SharedViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -47,7 +48,7 @@ class HomeFragment : Fragment(), MatchListAdapter.Listener {
         mPrefs = requireActivity().getPreferences(MODE_PRIVATE)
         prefsEditor = mPrefs?.edit()
 
-        homeViewModel?.noticesResponse?.observe(viewLifecycleOwner) { response ->
+        sharedViewModel?.noticesResponse?.observe(viewLifecycleOwner) { response ->
 
             response.notice?.matchList?.let { list ->
 
@@ -76,7 +77,7 @@ class HomeFragment : Fragment(), MatchListAdapter.Listener {
         matchDetailDialog(
             requireContext(),
             match,
-            homeViewModel!!,
+            sharedViewModel!!,
             viewLifecycleOwner
         ).show()
 
@@ -84,7 +85,7 @@ class HomeFragment : Fragment(), MatchListAdapter.Listener {
 
     override fun changeFavoriteStatus(status: Boolean, position: Int, matchModel: Match) {
         matchListAdapter?.notifyItemChanged(position)
-        saveFavorite(matchModel, status)
+        changeFavorite(matchModel, status)
     }
 
 
@@ -96,7 +97,7 @@ class HomeFragment : Fragment(), MatchListAdapter.Listener {
         return ArrayList(res.toList())
     }
 
-    private fun saveFavorite(match: Match, status: Boolean) {
+    private fun changeFavorite(match: Match, status: Boolean) {
         val gson = Gson()
 
         val newFavorites = getFavorites()
@@ -106,9 +107,9 @@ class HomeFragment : Fragment(), MatchListAdapter.Listener {
             newFavorites.remove(match)
         }
 
-        val json = gson.toJson(newFavorites)
+        val stringFavoriteList = gson.toJson(newFavorites)
 
-        prefsEditor?.putString("favoriteMatches", json)
+        prefsEditor?.putString("favoriteMatches", stringFavoriteList)
         prefsEditor?.commit()
 
     }

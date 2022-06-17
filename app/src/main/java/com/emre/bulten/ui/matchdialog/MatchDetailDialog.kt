@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emre.bulten.R
 import com.emre.bulten.remote.models.Match
-import com.emre.bulten.ui.home.HomeViewModel
+import com.emre.bulten.ui.SharedViewModel
 import kotlinx.android.synthetic.main.dialog_match_detail.view.*
 
 fun matchDetailDialog(
     context: Context,
     match: Match,
-    viewModel: HomeViewModel,
+    viewModel: SharedViewModel,
     viewLifecycleOwner: LifecycleOwner
 ): AlertDialog {
 

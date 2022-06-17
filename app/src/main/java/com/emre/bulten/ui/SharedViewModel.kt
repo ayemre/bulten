@@ -1,4 +1,4 @@
-package com.emre.bulten.ui.home
+package com.emre.bulten.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,14 +7,13 @@ import com.emre.bulten.remote.BultenAPI
 import com.emre.bulten.remote.models.MatchDetailResponse
 import com.emre.bulten.remote.models.NoticesResponse
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class HomeViewModel : ViewModel() {
+class SharedViewModel : ViewModel() {
 
     private val _noticesResponse: MutableLiveData<NoticesResponse> = MutableLiveData()
     val noticesResponse: LiveData<NoticesResponse> = _noticesResponse

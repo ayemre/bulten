@@ -11,9 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.emre.bulten.databinding.FragmentHomeBinding
-import com.emre.bulten.remote.models.Detail
 import com.emre.bulten.remote.models.Match
-import com.emre.bulten.ui.home.HomeViewModel
+import com.emre.bulten.ui.SharedViewModel
 import com.emre.bulten.ui.home.MatchListAdapter
 import com.emre.bulten.ui.matchdialog.matchDetailDialog
 import com.google.gson.Gson
@@ -24,7 +23,7 @@ class FavoritesFragment : Fragment(), MatchListAdapter.Listener {
 
     private val binding get() = _binding!!
 
-    private var homeViewModel: HomeViewModel? = null
+    private var sharedViewModel: SharedViewModel? = null
 
     private var matchListAdapter: MatchListAdapter? = null
 
@@ -40,15 +39,14 @@ class FavoritesFragment : Fragment(), MatchListAdapter.Listener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        sharedViewModel =
+            ViewModelProvider(this).get(SharedViewModel::class.java)
 
         mPrefs = requireActivity().getPreferences(Context.MODE_PRIVATE)
         prefsEditor = mPrefs?.edit()
 
         val recyclerView: RecyclerView = binding.rvNotices
         val loadingView: FrameLayout = binding.loadingLay
-        loadingView.visibility = View.GONE
 
         matchListAdapter = MatchListAdapter(getFavorites(), this)
         recyclerView.adapter = matchListAdapter
@@ -76,7 +74,7 @@ class FavoritesFragment : Fragment(), MatchListAdapter.Listener {
         matchDetailDialog(
             requireContext(),
             match,
-            homeViewModel!!,
+            sharedViewModel!!,
             viewLifecycleOwner
         ).show()
     }
